@@ -38,7 +38,7 @@ var Nodes = React.createClass({
       <ul>
         {this.state.nodes.map((node) => {
           return (
-            <li>{node.name}</li>
+            <li key={node.id}>{node.name}</li>
           );
         })}
       </ul>
