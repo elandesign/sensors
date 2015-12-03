@@ -1,0 +1,14 @@
+{
+  "serial": {
+    "port": "/dev/tty.usbmodem1411",
+    "baudRate": "115200"
+  },
+  "ethernet": {
+    "host": "127.0.0.1",
+    "port": "5003"
+  },
+  "mqtt": {
+    "host": "127.0.0.1",
+    "port": "1883"
+  }
+}
