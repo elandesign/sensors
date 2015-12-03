@@ -1,16 +1,24 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var serialport = require('serialport');
 var config = require("../config/gateway.json")["serial"]
 var models = require("./models")
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
 
-app.get('/nodes', function (req, res) {
+app.get('/nodes', function(req, res) {
   models.Node.findAll().then(function(nodes) {
-    res.send(nodes);
+    res.json(nodes);
   })
 });
+
+app.post('/nodes', function(req, res) {
+  models.Node.create({name: req.body.name}).then(function(node) {
+    res.json(node);
+  })
+})
 
 
 // var SerialPort  = serialport.SerialPort;
@@ -32,7 +40,7 @@ app.get('/nodes', function (req, res) {
 // });
 
 models.sequelize.sync().then(function () {
-  var server = app.listen(3000, function () {
-    console.log('Example app listening on port %s', server.address().port);
+  var server = app.listen(3001, function () {
+    console.log('Sensors listening on port %s', server.address().port);
   });
 });

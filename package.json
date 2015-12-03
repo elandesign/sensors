@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "alt": "^0.17.9",
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
