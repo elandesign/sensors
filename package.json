@@ -5,14 +5,16 @@
   "repository": "https://github.com/elandesign/sensors",
   "main": "index.js",
   "scripts": {
-    "build": "browserify -t [reactify --es6] src/App.jsx > build/app.js",
-    "start": "npm run build && open 'index.html' ",
+    "build": "browserify -t [reactify --es6] src/App.jsx > public/javascripts/sensors.js",
+    "server": "node src/server.js",
+    "start": "npm run build && npm run server",
     "test": "jest"
   },
   "author": "Paul Smith",
   "license": "ISC",
   "dependencies": {
     "alt": "^0.17.9",
+    "express": "^4.13.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
   },

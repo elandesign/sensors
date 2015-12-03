@@ -29,7 +29,7 @@ var Nodes = React.createClass({
     if (!this.state.nodes.length) {
       return (
         <div>
-          <img src="ajax-loader.gif" />
+          <img src="/images/ajax-loader.gif" />
         </div>
       )
     }
@@ -38,11 +38,15 @@ var Nodes = React.createClass({
       <ul>
         {this.state.nodes.map((node) => {
           return (
-            <li key={node.id}>{node.name}</li>
+            <li key={node.id} onClick={this.removeNode}>{node.name}</li>
           );
         })}
       </ul>
     );
+  },
+
+  removeNode(node) {
+    console.log(node);
   }
 });
 
