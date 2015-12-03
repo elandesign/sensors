@@ -6,9 +6,11 @@ var models = require("./models")
 
 app.use(express.static('public'));
 
-// app.get('/', function (req, res) {
-//   res.send('Hello World!');
-// });
+app.get('/nodes', function (req, res) {
+  models.Node.findAll().then(function(nodes) {
+    res.send(nodes);
+  })
+});
 
 
 // var SerialPort  = serialport.SerialPort;
