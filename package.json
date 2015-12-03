@@ -1,0 +1,22 @@
+{
+  "name": "sensors",
+  "version": "1.0.0",
+  "description": "MySensors Controller",
+  "repository": "https://github.com/elandesign/sensors",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify -t [reactify --es6] src/App.jsx > build/app.js",
+    "start": "npm run build && open 'index.html' ",
+    "test": "jest"
+  },
+  "author": "Paul Smith",
+  "license": "ISC",
+  "dependencies": {
+    "alt": "^0.17.9",
+    "react": "^0.14.3"
+  },
+  "devDependencies": {
+    "browserify": "^8.0.3",
+    "reactify": "^0.17.1"
+  }
+}
