@@ -1,5 +1,6 @@
 var React = require('react');
 var NodeStore = require('../stores/NodeStore');
+var Link = require('react-router').Link;
 
 var Nodes = React.createClass({
   getInitialState() {
@@ -8,7 +9,8 @@ var Nodes = React.createClass({
 
   componentDidMount() {
     NodeStore.listen(this.onChange);
-    NodeStore.fetchNodes();
+    if(!this.state.nodes.length)
+      NodeStore.fetchNodes();
   },
 
   componentWillUnmount() {
@@ -38,7 +40,9 @@ var Nodes = React.createClass({
       <ul>
         {this.state.nodes.map((node) => {
           return (
-            <li key={node.id} onClick={this.removeNode}>{node.name}</li>
+            <li key={node.id}>
+              <Link to={`/nodes/${node.id}`}>{node.name}</Link>
+            </li>
           );
         })}
       </ul>
