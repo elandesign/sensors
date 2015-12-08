@@ -1,6 +1,6 @@
 {
   "serial": {
-    "port": "/dev/tty.usbmodem1411",
+    "port": "/dev/tty.usbmodem1421",
     "baudRate": "115200"
   },
   "ethernet": {
