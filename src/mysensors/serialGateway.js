@@ -1,7 +1,6 @@
 "use strict";
 
 var Message = require("./message");
-var EventLogger = require("./eventLogger");
 var serial = require('serialport');
 var SerialPort = serial.SerialPort;
 
@@ -12,7 +11,6 @@ class SerialGateway {
       baudRate: baudRate,
       parser: serial.parsers.readline('\n')
     }
-    this.logger = new EventLogger();
     this.connect()
   }
 
