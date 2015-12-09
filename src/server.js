@@ -7,27 +7,22 @@ var Gateway = require("./mysensors/serialGateway.js");
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.get('/nodes', function(req, res) {
-  models.Node.findAll().then(function(nodes) {
-    res.json(nodes);
+app.get('/devices', function(req, res) {
+  models.Device.findAll().then(function(devices) {
+    res.json(devices);
   })
 });
 
-app.get('/nodes/:nodeID', function(req, res){
-	models.SensorEvent.findAll({
+app.get('/devices/:deviceID/:sensorID', function(req, res){
+	models.Reading.findAll({
 		where: {
-			nodeID: req.params.nodeID
+			deviceID: req.params.deviceID,
+      sensorID: req.params.sensorID
 		}
-	}).then(function(events){
-		res.json(events);
+	}).then(function(readings){
+		res.json(readings);
 	});
 });
-
-app.post('/nodes', function(req, res) {
-  models.Node.create({name: req.body.name}).then(function(node) {
-    res.json(node);
-  })
-})
 
 var config = require("../config/gateway.json")["serial"]
 new Gateway(config.port, config.baudRate)
