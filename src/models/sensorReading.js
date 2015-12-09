@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Reading = sequelize.define("Reading", {
+  var SensorReading = sequelize.define("SensorReading", {
     deviceID: DataTypes.INTEGER,
     sensorID: DataTypes.INTEGER,
     type: DataTypes.INTEGER,
@@ -14,5 +14,5 @@ module.exports = function(sequelize, DataTypes) {
     ]
   });
 
-  return Reading;
+  return SensorReading;
 };

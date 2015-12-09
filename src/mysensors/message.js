@@ -4,7 +4,6 @@ var consts = require("./constants");
 var models = require("../models");
 
 class Message {
-
   constructor(deviceID, sensorID, messageType, ack, subType, payload) {
     this.deviceID = parseInt(deviceID);
     this.sensorID = parseInt(sensorID);
@@ -14,20 +13,19 @@ class Message {
     this.payload = payload;
   }
 
-  isSet() {
+  isSensorReading() {
     return this.messageType == consts.MESSAGE_TYPES.set
   }
 
-  isPresentation() {
-    return this.messageType == consts.MESSAGE_TYPES.presentation
+  isDevicePresentation() {
+    return this.messageType == consts.MESSAGE_TYPES.presentation &&
+      this.sensorID == 255 &&
+      this.subType == consts.PRESENTATION_TYPES.S_ARDUINO_NODE
   }
 
-  isDevice() {
-    return this.sensorID == 255 && this.subType == consts.PRESENTATION_TYPES.S_ARDUINO_NODE
-  }
-
-  isSensor() {
-    return this.sensorID != 255
+  isSensorPresentation() {
+    return this.messageType == consts.MESSAGE_TYPES.presentation &&
+      this.sensorID != 255
   }
 
   isInternal() {
@@ -35,13 +33,11 @@ class Message {
   }
 
   process() {
-    if(this.isPresentation()) {
-      if(this.isDevice()) {
-        models.Device.upsert({id: this.deviceID, firmwareVersion: this.payload});
-      }
-      else if(this.isSensor()) {
-        models.Sensor.upsert({deviceID: this.deviceID, sensorID: this.sensorID, type: this.subType})
-      }
+    if(this.isDevicePresentation()) {
+      models.Device.upsert({id: this.deviceID, firmwareVersion: this.payload});
+    }
+    else if(this.isSensorPresentation()) {
+      models.Sensor.upsert({deviceID: this.deviceID, sensorID: this.sensorID, type: this.subType})
     }
     else if(this.isInternal()) {
       switch(this.subType) {
@@ -53,8 +49,8 @@ class Message {
           break;
       }
     }
-    else if(this.isSet()) {
-      models.Reading.create({deviceID: this.deviceID, sensorID: this.sensorID, type: this.subType, payload: this.payload});
+    else if(this.isSensorReading()) {
+      models.SensorReading.create({deviceID: this.deviceID, sensorID: this.sensorID, type: this.subType, payload: this.payload});
     }
   }
 }

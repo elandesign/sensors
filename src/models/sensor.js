@@ -1,17 +1,15 @@
 module.exports = function(sequelize, DataTypes) {
   var Sensor = sequelize.define("Sensor", {
-    deviceID: DataTypes.INTEGER,
-    sensorID: DataTypes.INTEGER,
+    deviceID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    sensorID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     name: DataTypes.STRING,
     type: DataTypes.INTEGER
-  },
-  {
-    indexes: [
-      {
-        unique: true,
-        fields: ["deviceID", "sensorID"]
-      }
-    ]
   });
 
   return Sensor;
